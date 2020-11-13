@@ -23,7 +23,7 @@ project
 기본적으로 Git-flow를 따르며, release branch는 팀원들과 더 많은 협의 후 사용 예정.
 
 ```
-◼ master
+◼ main
     - 실제 배포가될 브랜치
     - repo 총 관리자가 팀원들과 협의 후 최종 병합, 배포
 
