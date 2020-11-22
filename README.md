@@ -20,7 +20,8 @@ project
 
 ## 브랜치 규칙
 
-기본적으로 Git-flow를 따르며, release branch는 팀원들과 더 많은 협의 후 사용 예정.
+기본적으로 Git-flow를 따르며, hot-fix와 release를 제외한 브랜치 사용<br>
+협의후 추가 사항이 있을시 추가 예정.
 
 ```
 ◼ main
@@ -38,17 +39,6 @@ project
 
     🔹 이름 규칙 : feature/기능 요약
 
-◼ release
-    - 이번 출시 버전을 준비하는 브랜치
-    - 배포할 수준의 기능이 모이거나 일정이 되면, master에 병합, 배포
-
-    🔹 이름 규칙 : release-*(버전 명)
-
-◼ hotfix
-    - 출시 버전에서 발생한 버그를 긴급 수정하는 브랜치
-    - master에서 배포한 브랜치에서 분기하여 필요한 부분만 수정후 병합, 배포
-
-    🔹 이름 규칙 : hotfix-*(배포 버전)
 ```
 
 <br>
@@ -96,32 +86,9 @@ git pull origin develop
 
 <br>
 
-## hotfix
-
-```
-$ git checkout -b hotfix-[버전] master
-
-/*  문제가 되는 부분만을 빠르게 수정  */
-
-$ git checkout master
-$ git merge --no-ff hotfix-[버전]
-$ git tag -a [버전]
-
-$ git checkout develop
-$ git merge --no-ff hotfix-[버전]
-```
-
-<br>
-
 ## Collaborator
 
 - 강석원
 - 박형근
 - 이지수
 - 홍의성
-
-<br><br>
-
-<br><br>
-
-<br><br>
