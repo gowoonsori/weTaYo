@@ -10,7 +10,8 @@ KPU 캡스톤 프로젝트로 시각 장애인을 위한 gps와 비콘을 이용
 ```
 project
     └ wetayo_app ( flutter )
-    └ wetayo_api ( spring api )
+    └ wetayo_driver_app ( flutter )
+    └ wetayo_api ( spring REST Api )
     └ raspberry ( 팀원간 상의 )
     └ wetayo_web ( web front server )
     └ README.md
@@ -62,7 +63,7 @@ git checkout -b develop origin/develop
 
 ```
 // 브랜치 명은 브랜치 이름 규칙을 보자!
-git checkout -b [브랜치 명] develop
+git checkout -b [브랜치 명]
 
 /* 작업 수행 */
 
