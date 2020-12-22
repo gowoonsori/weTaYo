@@ -69,11 +69,11 @@ git checkout -b [브랜치 명]
 
 git add .                   //작업한 모든 파일 추가
 git commit -m "메세지"       //메세지는 간단하게!!
-git push origin develop
+git push origin [브랜치 명[
 
-GUI툴이나 웹사이트에 가서 pull request
+GUI툴이나 웹사이트에 가서 develop 브랜치로 pull request
 
-git branch -d [브랜치 명]    //feature 브랜치 삭제
+git branch -d [브랜치 명]    //작업한 브랜치 삭제
 ```
 
 <br>
