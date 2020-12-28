@@ -92,4 +92,4 @@ git pull origin develop //파일 최신화
 
 - 강석원
 - 홍의성
-
+- 이지수
