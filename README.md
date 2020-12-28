@@ -69,7 +69,7 @@ git checkout -b [브랜치 명]
 
 git add .                   //작업한 모든 파일 추가
 git commit -m "메세지"       //메세지는 간단하게!!
-git push origin [브랜치 명[
+git push origin [브랜치 명]
 
 GUI툴이나 웹사이트에 가서 develop 브랜치로 pull request
 
