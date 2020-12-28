@@ -38,7 +38,7 @@ project
     - 개발이나 버그 픽스때마다 develop브랜치로부터 분기
     - 본인의 로컬 저장소에서 관리하는 브랜치 개발이 완료되면 develop브랜치에 병합하여 다른 사람들과 공유
 
-    🔹 이름 규칙 : feature/기능 요약
+    🔹 이름 규칙 : feature/기능 요약(이름)
 
 ```
 
@@ -73,7 +73,8 @@ git push origin [브랜치 명[
 
 GUI툴이나 웹사이트에 가서 develop 브랜치로 pull request
 
-git branch -d [브랜치 명]    //작업한 브랜치 삭제
+git checkout develop         //develop브랜치로 이동
+git branch -D [브랜치 명]    //작업한 브랜치 삭제
 ```
 
 <br>
@@ -81,8 +82,8 @@ git branch -d [브랜치 명]    //작업한 브랜치 삭제
 ## 다른 사람의 작업 동기화
 
 ```
-git checkout develop
-git pull origin develop
+git checkout develop    //develop브랜치로 이동
+git pull origin develop //파일 최신화
 ```
 
 <br>
@@ -90,6 +91,5 @@ git pull origin develop
 ## Collaborator
 
 - 강석원
-- 박형근
-- 이지수
 - 홍의성
+- 이지수
