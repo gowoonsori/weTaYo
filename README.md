@@ -91,3 +91,4 @@ git pull origin develop
 
 - 강석원
 - 홍의성
+- 이지수
