@@ -90,6 +90,4 @@ git pull origin develop
 ## Collaborator
 
 - 강석원
-- 박형근
-- 이지수
 - 홍의성
