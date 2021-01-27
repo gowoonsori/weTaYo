@@ -9,6 +9,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class PersonResource extends EntityModel<Station> {
     public PersonResource(Station station, Link...links){
         super(station,links);
-        add(linkTo(PersonController.class).slash(station.getBusId()).withSelfRel());
+        add(linkTo(PersonController.class).slash(station.getId()).withSelfRel());
     }
 }

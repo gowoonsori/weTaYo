@@ -12,20 +12,23 @@ import wetayo.service.api.stations.StationRepository;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(value = "api/persons", produces = "application/json, charset=UTF-8")
+@RequestMapping(value = "api/persons", produces = "application/json; charset=UTF-8")
 public class PersonController {
     private final StationRepository stationRepository;
     private final ModelMapper modelMapper;
+    Logger LOG = Logger.getGlobal();
 
     public PersonController(StationRepository stationRepository, ModelMapper modelMapper){
         this.stationRepository = stationRepository;
         this.modelMapper = modelMapper;
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity updatePerson(@PathVariable Integer id,@RequestBody @Valid PersonDto personDto, Errors errors){
+        LOG.info(String.valueOf(id));
         Optional<Station> optionalStation = this.stationRepository.findById(id);
         if(optionalStation.isEmpty()){
             return ResponseEntity.notFound().build();

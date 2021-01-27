@@ -2,11 +2,9 @@ package wetayo.service.api.stations;
 
 import lombok.*;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /*
 *   routId + stationId = Super Key
@@ -15,28 +13,29 @@ import javax.validation.constraints.NotEmpty;
 
 @Builder
 @Entity
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(of = "busId")
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(of = "id")
 public class Station {
 
-    @EmbeddedId
-    private BusId busId;
-    private int mobileNumber;
+    @Id
+    private Integer id;
+    @NotNull
+    private Integer mobile_number;
     @NotEmpty
-    private String stationName;
+    private String station_name;
     @NotEmpty
-    private String routeName;
+    private String route_name;
     @NotEmpty
-    private String upDown;
+    private String up_down;
+    @NotNull
+    private Integer station_order;
     @NotEmpty
-    private Integer stationOrder;
+    private String gps_X;
     @NotEmpty
-    private String gpsX;
-    @NotEmpty
-    private String gpsY;
+    private String gps_Y;
     @NotEmpty
     private String region;
-    private boolean isPerson = false;
-    private boolean isThereCenter = false;
+    private boolean isPerson;
+    private boolean isThereCenter;
     @Enumerated(EnumType.STRING)
     private DistrictCode districtCode = DistrictCode.GYEONGGI;
 }

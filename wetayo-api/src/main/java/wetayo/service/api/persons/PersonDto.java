@@ -1,17 +1,11 @@
 package wetayo.service.api.persons;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import wetayo.service.api.stations.BusId;
+import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Builder @NoArgsConstructor @AllArgsConstructor
+@Builder @NoArgsConstructor @AllArgsConstructor @Getter @Setter
 public class PersonDto {
-    @NotEmpty
-    private BusId busId;
-
-    @NotEmpty
+    @NotNull
     private boolean isPerson;
 }
