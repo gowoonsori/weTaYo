@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./wetayo-api
-      build-directory: ./wetayo-api/build/libs
       S3_BUCKET_NAME: wetayo-api-deploy
       PROJECT_NAME: wetayo-api
 
@@ -25,17 +24,8 @@ jobs:
         with:
           java-version: 11
 
-      - name: Grant execute permission for gradlew
-        run: |
-          echo $pwd
-          chmod +x gradlew
-        shell: bash
-        working-directory: ${{ env.working-directory }}
-
-      - name: Build with Gradle
-        run: |
-          ./gradlew build -x test
-        shell: bash
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
         working-directory: ${{ env.working-directory }}
 
       - name: Get current time
@@ -52,7 +42,7 @@ jobs:
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
         shell: bash
-        working-directory: ${{ env.build-directory }}
+        working-directory: ${{ env.working-directory }}
 
       - name: Congigure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -63,7 +53,7 @@ jobs:
 
       - name: Upload to S3
         run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
-        working-directory: ${{ env.build-directory }}
+        working-directory: ${{ env.working-directory }}
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name wetayo-api-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name main --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip

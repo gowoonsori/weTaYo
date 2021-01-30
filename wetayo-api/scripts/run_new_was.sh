@@ -19,6 +19,6 @@ if [ ! -z ${TARGET_PID} ];
     sudo kill ${TARGET_PID} 
 fi 
 
-nohup java -jar -Dserver.port=${TARGET_PORT} /home/ubuntu/wetayo-api/build/libs/* > /home/ubuntu/nohup.out 2>&1 & 
+nohup java -jar -Dserver.port=${TARGET_PORT} /home/ubuntu/wetayo-api/target/* > /home/ubuntu/nohup.out 2>&1 & 
 echo "> Now new WAS runs at ${TARGET_PORT}." 
 exit 0
