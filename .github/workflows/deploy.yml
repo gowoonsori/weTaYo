@@ -43,6 +43,7 @@ jobs:
       - name: Make zip file 
         run: zip -r ./$GITHUB_SHA.zip . 
         shell: bash
+        working-directory: ./wetayo-api/target/
 
       - name: Congigure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
