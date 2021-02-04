@@ -86,9 +86,10 @@ wetayo_app\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistran
 \wetayo_app\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java
 wetayo_app/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 /wetayo_app/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
 wetayo_app/ios/Runner/GeneratedPluginRegistrant.m
 /wetayo_app/ios/Runner/GeneratedPluginRegistrant.m
-/wetayo_app\ios\Runner\GeneratedPluginRegistrant.m
+wetayo_app\ios\Runner\GeneratedPluginRegistrant.m
 \wetayo_app\ios\Runner\GeneratedPluginRegistrant.m
 
 android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
