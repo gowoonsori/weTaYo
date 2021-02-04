@@ -60,6 +60,8 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 
+**/package_config.json
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
