@@ -12,7 +12,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
-  String _text = "현재 위치 : 모름";
+  String _text = "현재 위치 : 앎";
   //NavigationBarIndex _currentIndex;
   int _currentIndex;
   TabController controller;
