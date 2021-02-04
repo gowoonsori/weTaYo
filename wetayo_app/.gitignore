@@ -71,11 +71,18 @@ unlinked_spec.ds
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
 *.jks
 
-android/app/src/main/java/io/flutter\plugins\GeneratedPluginRegistrant.java
-ios\Runner\GeneratedPluginRegistrant.m
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+./android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java
+ios/Runner/GeneratedPluginRegistrant.m
+./ios/Runner/GeneratedPluginRegistrant.m
+/ios/Runner/GeneratedPluginRegistrant.m
+
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
