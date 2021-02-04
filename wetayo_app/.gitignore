@@ -71,10 +71,13 @@ unlinked_spec.ds
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
-**/android/**/GeneratedPluginRegistrant.java
+**\android\**\GeneratedPluginRegistrant.java
 **/android/key.properties
 *.jks
-
+GeneratedPluginRegistrant.java
+Generated.xcconfig
+flutter_export_environment.sh
+GeneratedPluginRegistrant.m
 android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 /android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 ./android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
