@@ -81,6 +81,16 @@ Generated.xcconfig
 flutter_export_environment.sh
 **/GeneratedPluginRegistrant.m
 GeneratedPluginRegistrant.m
+
+wetayo_app\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java
+\wetayo_app\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java
+wetayo_app/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+/wetayo_app/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+wetayo_app/ios/Runner/GeneratedPluginRegistrant.m
+/wetayo_app/ios/Runner/GeneratedPluginRegistrant.m
+/wetayo_app\ios\Runner\GeneratedPluginRegistrant.m
+\wetayo_app\ios\Runner\GeneratedPluginRegistrant.m
+
 android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 /android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 ./android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
