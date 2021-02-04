@@ -1,4 +1,4 @@
-name: wetayo_app
+name: practice2
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -23,6 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  fluttertoast: ^7.1.6
+  pull_to_refresh: ^1.6.3
+  geolocator: ^6.1.14
+  permission_handler: ^4.2.0
+
 
 
   # The following adds the Cupertino Icons font to your application.

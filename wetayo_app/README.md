@@ -1,4 +1,4 @@
-# wetayo_app
+# practice2
 
 A new Flutter project.
 
