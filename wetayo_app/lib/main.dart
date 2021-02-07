@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wetayo_app/screen/home_screen.dart';
 import 'package:wetayo_app/widget/bottom_bar.dart';
 
 void main() {
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
-              Container(),
+              HomeScreen(),
               Container(),
               Container(),
             ],
