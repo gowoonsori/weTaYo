@@ -25,22 +25,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            ButtonTheme(
-              buttonColor: Color.fromRGBO(24, 76, 136, 0.5),
-              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-              minWidth: double.infinity,
-              height: 100.0,
-              child: RaisedButton(
-                child: Text('정류소 \n선택하기'),
-                onPressed: onClick,
-              ),
-            )
-          ],
-        ),
+    return Center(
+      child: Column(
+        children: <Widget>[
+          ButtonTheme(
+            buttonColor: Color.fromRGBO(24, 76, 136, 0.5),
+            minWidth: double.infinity,
+            height: 100.0,
+            child: RaisedButton(
+              child: Text('정류소 \n선택하기'),
+              padding: EdgeInsets.all(20),
+              onPressed: onClick,
+            ),
+          )
+        ],
       ),
     );
   }
