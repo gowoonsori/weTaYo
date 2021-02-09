@@ -26,20 +26,49 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            ButtonTheme(
-              buttonColor: Color.fromRGBO(24, 76, 136, 0.5),
-              minWidth: double.infinity,
-              height: 100.0,
-              child: RaisedButton(
-                child: Text('정류소 \n선택하기!!!'),
-                padding: EdgeInsets.all(20),
-                onPressed: onClick,
+      body: Container(
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                width: double.infinity,
+                height: 480.0,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                  child: Text(
+                    '정류소 \n 선택하기!!!',
+                    style:
+                        TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  color: Color(0xff184C88),
+                  onPressed: onClick,
+                ),
               ),
-            )
-          ],
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(10.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                    child: Text(
+                      '즐겨찾기',
+                      style: TextStyle(
+                          fontSize: 40.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    color: Color(0xff184C88),
+                    onPressed: onClick,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
