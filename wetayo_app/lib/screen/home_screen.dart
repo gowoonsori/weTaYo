@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wetayo_app/screen/station_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
                 width: double.infinity,
                 height: 480.0,
                 child: RaisedButton(
@@ -39,18 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                   child: Text(
-                    '정류소 \n 선택하기!!!',
+                    '정류소 \n 선택하기',
                     style:
-                        TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 55.0, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   color: Color(0xff184C88),
-                  onPressed: onClick,
+                  onPressed: () =>
+                      DefaultTabController.of(context).animateTo(2),
                 ),
               ),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.all(10.0),
+                  margin: EdgeInsets.all(20.0),
                   width: double.infinity,
                   child: RaisedButton(
                     shape: RoundedRectangleBorder(
@@ -59,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       '즐겨찾기',
                       style: TextStyle(
-                          fontSize: 40.0, fontWeight: FontWeight.bold),
+                          fontSize: 55.0, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                     color: Color(0xff184C88),
