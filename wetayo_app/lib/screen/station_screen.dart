@@ -48,6 +48,8 @@ class _StationScreenState extends State<StationScreen> {
     setState(() {
       _text = _newText;
     });
+
+    print(_text);
   }
 
   @override
@@ -61,7 +63,7 @@ class _StationScreenState extends State<StationScreen> {
             alignment: Alignment(-0.7, 0),
             child: Text(
               '나와 가장 가까운 정류소',
-              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -75,7 +77,7 @@ class _StationScreenState extends State<StationScreen> {
               ),
               child: Text(
                 '한국산업기술대 \n (이마트 방향) \n 정류소 선택하기',
-                style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               color: Color(0xff184C88),
@@ -87,7 +89,7 @@ class _StationScreenState extends State<StationScreen> {
             alignment: Alignment(-0.5, 0),
             child: Text(
               '내 주변의 가장 가까운 정류소',
-              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),

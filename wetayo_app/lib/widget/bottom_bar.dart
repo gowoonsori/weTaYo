@@ -4,7 +4,7 @@ class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 60,
       color: Colors.black,
       child: Container(
         height: 50,
@@ -16,19 +16,19 @@ class Bottom extends StatelessWidget {
             Tab(
               icon: Icon(
                 Icons.home,
-                size: 35,
+                size: 30,
               ),
             ),
             Tab(
               icon: Icon(
                 Icons.notifications,
-                size: 35,
+                size: 30,
               ),
             ),
             Tab(
               icon: Icon(
                 Icons.directions_bus_outlined,
-                size: 35,
+                size: 30,
               ),
             ),
           ],

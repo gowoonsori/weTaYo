@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
                 width: double.infinity,
-                height: 480.0,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: RaisedButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
