@@ -26,6 +26,7 @@ dependencies:
   fluttertoast: ^7.1.6
   pull_to_refresh: 1.6.3
   geolocator: ^6.1.14
+  location : ^3.0.0
   permission_handler: ^4.2.0
 
 
