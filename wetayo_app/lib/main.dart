@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wetayo_app/screen/home_screen.dart';
+import 'package:wetayo_app/screen/lbs_screen.dart';
 import 'package:wetayo_app/screen/station_screen.dart';
 import 'package:wetayo_app/widget/bottom_bar.dart';
 
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               HomeScreen(),
-              Container(),
+              LbsScreen(),
               StationScreen(),
             ],
           ),

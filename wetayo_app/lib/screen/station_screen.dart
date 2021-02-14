@@ -10,6 +10,7 @@ class StationScreen extends StatefulWidget {
 class _StationScreenState extends State<StationScreen> {
   String _buttonState = 'OFF';
   String _text = '현재 위치 : 모름';
+  String _x, _y; // 현재 위치의 위도, 경도 (x, y)
 
   void onClick() {
     print("onClick()");
@@ -35,18 +36,23 @@ class _StationScreenState extends State<StationScreen> {
 
   _refresh() async {
     print('refresh current location');
-
     String _newText;
+    String _newX, _newY;
+
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
       String result = "(${position.latitude}, ${position.longitude})";
       _newText = '현재 위치는 $result ';
+      _newX = position.latitude.toString();
+      _newY = position.longitude.toString();
     } on PlatformException {
       _newText = '현재 위치는 사용할 수 없습니다.';
     }
     setState(() {
       _text = _newText;
+      _x = _newX;
+      _y = _newY;
     });
 
     print(_text);
