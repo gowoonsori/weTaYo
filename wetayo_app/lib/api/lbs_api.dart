@@ -7,7 +7,7 @@ const String _defaultX = '126.7309';
 const String _yPrefix = '&y=';
 const String _defaultY = '37.3412';
 
-const int STATUS_OK = 00;
+const String STATUS_OK = '00';
 
 String buildUrl(String x, String y) {
   StringBuffer sb = StringBuffer();

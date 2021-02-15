@@ -3,12 +3,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../model/lbs_station.dart';
 import '../api/lbs_api.dart' as api;
+import 'package:xml2json/xml2json.dart';
 
 class LbsScreen extends StatefulWidget {
   _LbsScreenState createState() => _LbsScreenState();
 }
 
 class _LbsScreenState extends State<LbsScreen> {
+  final Xml2Json xml2Json = Xml2Json();
   List<lbsStation> _data = [];
   bool _isLoading = false;
 
@@ -75,15 +77,17 @@ class _LbsScreenState extends State<LbsScreen> {
     //String station = _stationController.text;
     var response = await http.get(api.buildUrl(_x, _y));
     String responseBody = response.body;
-    print('res >> $responseBody');
+    xml2Json.parse(responseBody);
+    var jsonString = xml2Json.toParker();
+    print('res >> $jsonString');
 
-    var json = jsonDecode(responseBody);
+    var json = jsonDecode(jsonString);
     print(json);
-    Map<String, dynamic> errorMessage = json['comMsgHeader'];
+    Map<String, dynamic> errorMessage = json['response']['comMsgHeader'];
 
     if (errorMessage['returnCode'] != api.STATUS_OK) {
       setState(() {
-        final String errMessage = errorMessage['resultMessage'];
+        final String errMessage = errorMessage['errMsg'];
         print('error >> $errMessage');
 
         _data = const [];
