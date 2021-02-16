@@ -2,6 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_text_to_speech/flutter_text_to_speech.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+Future<Post> fetchPost() async {
+  var future = http.get(
+      Uri.encodeFull('https://openapi.naver.com/v1/voice/tts.bin'),
+      headers: {"Content-type": "application/x-www-form-urlencoded"});
+  final response = await future;
+
+  if (response.statusCode == 200) {
+    return Post.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load post');
+  }
+}
+
+class Post {
+  /*final int userId;
+  final int id;
+  final String title;
+  final String body;
+
+  Post({this.userId, this.id, this.title, this.body});
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
+      body: json['body'],
+    );
+  }*/
+
+  final String speaker;
+  final int speed;
+  final String text;
+
+  Post({this.speaker, this.speed, this.text});
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      speaker: json['speaker'],
+      speed: json['speed'],
+      text: json['text'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['speaker'] = this.speaker;
+    data['speed'] = this.speed;
+    data['text'] = this.text;
+
+    return data;
+  }
+}
 
 class StationScreen extends StatefulWidget {
   _StationScreenState createState() => _StationScreenState();
@@ -11,6 +69,11 @@ class _StationScreenState extends State<StationScreen> {
   String _buttonState = 'OFF';
   String _text = '현재 위치 : 모름';
   String _x, _y; // 현재 위치의 위도, 경도 (x, y)
+  VoiceController _voiceController;
+  String text = ' ';
+  Future<Post> post;
+  String clientId = "YOUR_CLIENT_ID";
+  String clientSecret = "YOUR_CLIENT_SECRET";
 
   void onClick() {
     print("onClick()");
@@ -28,6 +91,23 @@ class _StationScreenState extends State<StationScreen> {
     super.initState();
     _checkPermissions();
     _refresh();
+    //_voiceController = FlutterTextToSpeech.instance.voiceController();
+    post = fetchPost();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _voiceController.stop();
+  }
+
+  _playVoice() {
+    _voiceController.init().then((_) {
+      _voiceController.speak(
+        text,
+        VoiceControllerOptions(),
+      );
+    });
   }
 
   _checkPermissions() async {

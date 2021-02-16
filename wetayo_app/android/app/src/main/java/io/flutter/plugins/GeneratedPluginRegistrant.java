@@ -4,6 +4,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.plugins.shim.ShimPluginRegistry;
 
 /**
  * Generated file. Do not edit.
@@ -13,6 +14,8 @@ import io.flutter.embedding.engine.FlutterEngine;
 @Keep
 public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
+    ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
+      com.flutter.text_to_speech.FlutterTextToSpeechPlugin.registerWith(shimPluginRegistry.registrarFor("com.flutter.text_to_speech.FlutterTextToSpeechPlugin"));
     flutterEngine.getPlugins().add(new io.github.ponnamkarthik.toast.fluttertoast.FlutterToastPlugin());
     flutterEngine.getPlugins().add(new com.baseflow.geolocator.GeolocatorPlugin());
     flutterEngine.getPlugins().add(new com.lyokone.location.LocationPlugin());
