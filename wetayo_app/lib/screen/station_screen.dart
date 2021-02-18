@@ -7,6 +7,7 @@ import 'dart:convert';
 import '../model/lbs_station.dart';
 import '../api/lbs_api.dart' as api;
 import 'package:xml2json/xml2json.dart';
+import "dart:io";
 
 class StationScreen extends StatefulWidget {
   _StationScreenState createState() => _StationScreenState();
@@ -24,7 +25,7 @@ class _StationScreenState extends State<StationScreen> {
   String _x = '126.7309';
   String _y = '37.3412';
 
-  void onClick() {
+  onClick() {
     print("onClick()");
     setState(() {
       if (_buttonState == 'OFF') {
@@ -126,74 +127,84 @@ class _StationScreenState extends State<StationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            child: SafeArea(
-      child: Column(
-        children: <Widget>[
-          Container(
-            alignment: Alignment(-0.7, 0),
-            child: Text(
-              '나와 가장 가까운 정류소',
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-                top: 10.0, left: 20.0, right: 20.0, bottom: 30.0),
-            width: double.infinity,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              child: Text(
-                '한국산업기술대 \n (이마트 방향) \n 정류소 선택하기',
-                style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              color: Color(0xff184C88),
-              onPressed: _refresh,
-              padding: const EdgeInsets.all(20.0),
-            ),
-          ),
-          Container(
-            alignment: Alignment(-0.5, 0),
-            child: Text(
-              '내 주변의 가장 가까운 정류소',
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 16.0, bottom: 16.0, right: 10.0, left: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          _data[index].stationName,
-                          style: TextStyle(
-                              fontSize: 22.0, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          '${_data[index].distance} (m)',
-                          style: TextStyle(
-                              fontSize: 22.0, fontWeight: FontWeight.bold),
-                        )
-                      ],
+      resizeToAvoidBottomPadding: false,
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment(-0.7, 0),
+                    child: Text(
+                      '나와 가장 가까운 정류소',
+                      style: TextStyle(
+                          fontSize: 25.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                );
-              },
-              itemCount: _data.length,
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 10.0, left: 20.0, right: 20.0, bottom: 30.0),
+                    width: double.infinity,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                      child: Text(
+                        '\'${_data[0].stationName}\'\n정류소 선택하기',
+                        style: TextStyle(
+                            fontSize: 35.0, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      color: Color(0xff184C88),
+                      onPressed: _refresh,
+                      padding: const EdgeInsets.all(20.0),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment(-0.5, 0),
+                    child: Text(
+                      '내 주변의 가장 가까운 정류소',
+                      style: TextStyle(
+                          fontSize: 25.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Card(
+                            child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 16.0, bottom: 16.0, right: 10.0, left: 10.0),
+                          child: InkWell(
+                            onTap: onClick,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  _data[index].stationName,
+                                  style: TextStyle(
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  '${_data[index].distance} (m)',
+                                  style: TextStyle(
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ),
+                        ));
+                      },
+                      itemCount: _data.length,
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
-      ),
-    )));
+    );
   }
 }
