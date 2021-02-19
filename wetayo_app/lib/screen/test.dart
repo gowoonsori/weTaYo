@@ -147,7 +147,7 @@ class MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('지하철 실시간 정보'),
+        title: Text('버스 실시간 정보'),
       ),
       body: Center(
         child: Column(

@@ -24,14 +24,17 @@ class _ServerPage extends State<ServerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Query(
+        body: SafeArea(
+      child: Query(
         options: QueryOptions(
           document: gql("""query{
-            getRoute(regionName:"시흥"){
-              routeId 
-              routeNumber
+            getStation(gpsY: 37.3740667 gpsX: 126.84246 distance: 0.02){
+              stationId
+              stationName
+              mobileNumber
+              distance
               }
-            }"""),
+              }"""),
         ),
         builder: (QueryResult result,
             {VoidCallback refetch, FetchMore fetchMore}) {
@@ -49,15 +52,15 @@ class _ServerPage extends State<ServerPage> {
           }
         },
       ),
-    );
+    ));
   }
 
   Widget _buildList(BuildContext context, QueryResult result) {
     return ListView.builder(
         physics: BouncingScrollPhysics(),
-        itemCount: result.data["getRoute"].length,
+        itemCount: result.data["getStation"].length,
         itemBuilder: (context, index) {
-          Map item = result.data["getRoute"][index];
+          Map item = result.data["getStation"][index];
           return Card(
             shape: StadiumBorder(),
             elevation: 20,
@@ -69,7 +72,7 @@ class _ServerPage extends State<ServerPage> {
                 dense: true,
                 //leading: Image.network(item["medium_cover_image"]),
                 title: Text(
-                  item["routeId"].toString(),
+                  item["stationName"].toString(),
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 subtitle: Row(
@@ -79,12 +82,12 @@ class _ServerPage extends State<ServerPage> {
                       color: Colors.yellow,
                     ),
                     Text(
-                      item["routeNumber".toString()],
+                      item["mobileNumber".toString()],
                       style: TextStyle(color: Colors.yellow),
                     )
                   ],
                 ),
-                trailing: Text("routeNumber\n${item["routeNumber"]}"),
+                trailing: Text("distance\n${item["distance"]}"),
               ),
             ),
           );

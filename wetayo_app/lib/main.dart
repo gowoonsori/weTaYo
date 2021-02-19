@@ -38,7 +38,10 @@ class _MyAppState extends State<MyApp> {
                 client: graphqlService.client,
                 child: ServerPage(),
               ),
-              StationScreen(),
+              GraphQLProvider(
+                client: graphqlService.client,
+                child: StationScreen(),
+              )
             ],
           ),
           bottomNavigationBar: Bottom(),
