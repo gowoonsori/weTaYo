@@ -7,14 +7,14 @@ class ServerPage extends StatefulWidget {
 }
 
 class _ServerPage extends State<ServerPage> {
-  void onClickMovie(BuildContext context, Map _item) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DetailPage(
-                  item: _item,
-                )));
-  }
+  // void onClickMovie(BuildContext context, Map _item) {
+  //   Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //           builder: (context) => DetailPage(
+  //               //item: _item,
+  //               )));
+  // }
 
   @override
   void initState() {
