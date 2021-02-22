@@ -34,7 +34,7 @@ Server Endpoint : http://3.35.30.64/wetayo
      query{
          getStation(gpsY: 37.3740667 gpsX: 126.8424833 distance: 0.02){
            stationId
-     	     stationName
+           stationName
            mobileNumber
            distance
              }
