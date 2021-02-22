@@ -37,8 +37,8 @@ Server Endpoint : http://3.35.30.64/wetayo
            stationName
            mobileNumber
            distance
-             }
-         }
+           }
+     }
      ```
 
    - 응답 예시
