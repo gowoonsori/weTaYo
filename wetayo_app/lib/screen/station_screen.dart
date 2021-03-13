@@ -108,7 +108,7 @@ class _StationScreenState extends State<StationScreen> {
             Query(
               options: QueryOptions(
                 document: gql("""query{
-            getStation(gpsY: 37.3740667 gpsX: 126.84246 distance: 0.02){
+            getStations(gpsY: 37.3740667 gpsX: 126.84246 distance: 0.2){
               stationId
               stationName
               mobileNumber
@@ -129,9 +129,10 @@ class _StationScreenState extends State<StationScreen> {
                   );
                 } else {
                   print(result.data.toString());
-                  name = result.data["getStation"][0]["stationName"].toString();
+                  name =
+                      result.data["getStations"][0]["stationName"].toString();
                   mobileNum =
-                      result.data["getStation"][0]["mobileNumber"].toString();
+                      result.data["getStations"][0]["mobileNumber"].toString();
                   print(name);
                   return _buildList(context, result);
                 }
@@ -148,9 +149,9 @@ class _StationScreenState extends State<StationScreen> {
     return Expanded(
         child: ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: result.data["getStation"].length,
+            itemCount: result.data["getStations"].length,
             itemBuilder: (context, index) {
-              Map item = result.data["getStation"][index];
+              Map item = result.data["getStations"][index];
               return Card(
                 shape: StadiumBorder(),
                 elevation: 20,
@@ -158,7 +159,8 @@ class _StationScreenState extends State<StationScreen> {
                 child: Container(
                   margin: EdgeInsets.all(10),
                   child: ListTile(
-                    onTap: () => onClickMovie(context, item['mobileNumber']),
+                    onTap: () =>
+                        onClickMovie(context, item['stationId'].toString()),
                     dense: true,
                     //leading: Image.network(item["medium_cover_image"]),
                     title: Text(
