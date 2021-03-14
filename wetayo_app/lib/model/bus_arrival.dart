@@ -13,6 +13,7 @@ class busArrival {
   String _routeId;
   String _staOrder;
   String _stationId;
+  String _routeName;
 
   busArrival(
       this._flag,
@@ -28,7 +29,8 @@ class busArrival {
       this._remainSeatCnt2,
       this._routeId,
       this._staOrder,
-      this._stationId);
+      this._stationId,
+      this._routeName);
 
   String get flag => _flag;
   String get locationNo1 => _locationNo1;
@@ -44,4 +46,7 @@ class busArrival {
   String get routeId => _routeId;
   String get staOrder => _staOrder;
   String get stationId => _stationId;
+  String get routeName => _routeName;
+
+  set routeName(String routeNmae) => _routeName = routeName;
 }

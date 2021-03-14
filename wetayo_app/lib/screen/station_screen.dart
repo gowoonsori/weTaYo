@@ -108,11 +108,15 @@ class _StationScreenState extends State<StationScreen> {
             Query(
               options: QueryOptions(
                 document: gql("""query{
-            getStations(gpsY: 37.3740667 gpsX: 126.84246 distance: 0.2){
+            getStationAndRoutes(gpsY: 37.3740667 gpsX: 126.84246 distance: 0.2){
               stationId
               stationName
               mobileNumber
               distance
+                routes{
+                  routeId
+                  routeNumber
+                }
               }
               }"""),
               ),
@@ -129,11 +133,14 @@ class _StationScreenState extends State<StationScreen> {
                   );
                 } else {
                   print(result.data.toString());
-                  name =
-                      result.data["getStations"][0]["stationName"].toString();
-                  mobileNum =
-                      result.data["getStations"][0]["mobileNumber"].toString();
+                  name = result.data["getStationAndRoutes"][0]["stationName"]
+                      .toString();
+                  mobileNum = result.data["getStationAndRoutes"][0]
+                          ["mobileNumber"]
+                      .toString();
                   print(name);
+                  print(
+                      'routeName >> ${result.data['getStationAndRoutes'][0]['routes'][1]}');
                   return _buildList(context, result);
                 }
               },
@@ -149,9 +156,9 @@ class _StationScreenState extends State<StationScreen> {
     return Expanded(
         child: ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: result.data["getStations"].length,
+            itemCount: result.data["getStationAndRoutes"].length,
             itemBuilder: (context, index) {
-              Map item = result.data["getStations"][index];
+              Map item = result.data["getStationAndRoutes"][index];
               return Card(
                 shape: StadiumBorder(),
                 elevation: 20,
