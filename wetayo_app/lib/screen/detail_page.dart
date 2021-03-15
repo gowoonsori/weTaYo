@@ -19,6 +19,8 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPage extends State<DetailPage> {
+  int _stateIndex = 0;
+
   final CarouselController _controller = CarouselController();
   final Xml2Json xml2Json = Xml2Json();
 
@@ -241,95 +243,117 @@ class _DetailPage extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      child: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Positioned(
-                  child: AppBar(
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                  ),
-                ),
-              ],
-            ),
-            _isLoading
-                ? Center(child: CircularProgressIndicator())
-                : Container(
-                    child: CarouselSlider.builder(
-                    itemCount: _data.length,
-                    options: CarouselOptions(
-                        aspectRatio: 1.0,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.vertical,
-                        autoPlay: false),
-                    carouselController: _controller,
-                    itemBuilder: (context, index, idx) {
-                      return Card(
-                        child: Column(
-                          children: <Widget>[countArriverBus(index)],
-                        ),
-                      );
-                    },
-                  )),
-            Row(
-              children: <Widget>[
-                Flexible(
-                  child: RaisedButton(
-                    onPressed: () => _controller.previousPage(),
-                    child: Text('<-'),
-                  ),
-                ),
-                Flexible(
-                  child: RaisedButton(
-                    onPressed: () => _controller.nextPage(),
-                    child: Text('->'),
-                  ),
-                )
-              ],
-            ),
-            Expanded(
-              child: RaisedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('승차 예약'),
-                          content: SingleChildScrollView(
-                            child: ListBody(
-                              children: <Widget>[
-                                Text('Test'),
-                                Text('Test입니다.')
-                              ],
+        body: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Container(
+                child: SafeArea(
+                  child: Column(
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          Positioned(
+                            child: AppBar(
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
                             ),
                           ),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('확인'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
+                        ],
+                      ),
+                      Container(
+                          child: CarouselSlider.builder(
+                        itemCount: _data.length,
+                        options: CarouselOptions(
+                            aspectRatio: 1.0,
+                            enlargeCenterPage: true,
+                            scrollDirection: Axis.vertical,
+                            autoPlay: false),
+                        carouselController: _controller,
+                        itemBuilder: (context, index, idx) {
+                          _stateIndex = index - 1;
+                          return Card(
+                            child: Column(
+                              children: <Widget>[
+                                //countArriverBus(index),
+                                if (_data.length > 0)
+                                  Text(_data[index].routeName),
+                                if (_data.length > 0)
+                                  Text(_data[index].predictTime1)
+                                else
+                                  Text('없어요ㅜㅜ')
+                              ],
                             ),
-                            FlatButton(
-                              child: Text('취소'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
+                          );
+                        },
+                      )),
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: RaisedButton(
+                              onPressed: () => _controller.previousPage(),
+                              child: Text('<-'),
                             ),
-                          ],
-                        );
-                      });
-                },
-                child: Text('탑승 예약'),
-              ),
-            )
-          ],
-        ),
-      ),
-    ));
+                          ),
+                          Flexible(
+                            child: RaisedButton(
+                              onPressed: () => _controller.nextPage(),
+                              child: Text('->'),
+                            ),
+                          )
+                        ],
+                      ),
+                      Container(
+                        margin:
+                            EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('탑승 예약'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: <Widget>[
+                                            Text('Test'),
+                                            Text(
+                                                '${_data[_controller.getIndex()].routeName}번 버스를 탑승 하시겠습니까?')
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text('확인'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        FlatButton(
+                                          child: Text('취소'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Text(
+                              '탑승 예약',
+                              style: TextStyle(
+                                  fontSize: 55.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            color: Color(0xff184C88)),
+                      )
+                    ],
+                  ),
+                ),
+              ));
   }
 }
