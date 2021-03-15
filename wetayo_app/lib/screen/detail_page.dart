@@ -19,8 +19,6 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPage extends State<DetailPage> {
-  int _stateIndex = 0;
-
   final CarouselController _controller = CarouselController();
   final Xml2Json xml2Json = Xml2Json();
 
@@ -269,7 +267,6 @@ class _DetailPage extends State<DetailPage> {
                             autoPlay: false),
                         carouselController: _controller,
                         itemBuilder: (context, index, idx) {
-                          _stateIndex = index - 1;
                           return Card(
                             child: Column(
                               children: <Widget>[
