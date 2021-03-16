@@ -269,14 +269,25 @@ class _DetailPage extends State<DetailPage> {
                         itemBuilder: (context, index, idx) {
                           return Card(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 //countArriverBus(index),
                                 if (_data.length > 0)
-                                  Text(_data[index].routeName),
+                                  Text(
+                                    _data[index].routeName,
+                                    style: TextStyle(
+                                        fontSize: 65.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 if (_data.length > 0)
-                                  Text(_data[index].predictTime1)
+                                  Text(
+                                    '도착까지 ${_data[index].predictTime1} 분',
+                                    style: TextStyle(
+                                        fontSize: 50.0,
+                                        fontWeight: FontWeight.bold),
+                                  )
                                 else
-                                  Text('없어요ㅜㅜ')
+                                  Text('도착 버스 정보가 없습니다.')
                               ],
                             ),
                           );
@@ -284,13 +295,16 @@ class _DetailPage extends State<DetailPage> {
                       )),
                       Row(
                         children: <Widget>[
-                          Flexible(
+                          Container(
+                            padding: EdgeInsets.all(10.0),
                             child: RaisedButton(
-                              onPressed: () => _controller.previousPage(),
-                              child: Text('<-'),
-                            ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9.0)),
+                                onPressed: () => _controller.previousPage(),
+                                child: Text('<-'),
+                                color: Color(0xff184C88)),
                           ),
-                          Flexible(
+                          Container(
                             child: RaisedButton(
                               onPressed: () => _controller.nextPage(),
                               child: Text('->'),
@@ -302,7 +316,7 @@ class _DetailPage extends State<DetailPage> {
                         margin:
                             EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         child: RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
