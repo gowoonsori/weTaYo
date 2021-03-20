@@ -5,6 +5,7 @@ import 'package:wetayo_app/screen/ServerTest.dart';
 import 'package:wetayo_app/screen/detail_page.dart';
 import 'package:wetayo_app/screen/home_screen.dart';
 import 'package:wetayo_app/screen/lbs_screen.dart';
+import 'package:wetayo_app/screen/mutationTest.dart';
 import 'package:wetayo_app/screen/station_screen.dart';
 import 'package:wetayo_app/screen/test.dart';
 import 'package:wetayo_app/widget/bottom_bar.dart';
@@ -36,7 +37,10 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               HomeScreen(),
               //
-              Container(),
+              GraphQLProvider(
+                client: graphqlService.client,
+                child: MutationTest(),
+              ),
               GraphQLProvider(
                 client: graphqlService.client,
                 child: StationScreen(),

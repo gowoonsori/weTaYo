@@ -167,68 +167,6 @@ class _DetailPage extends State<DetailPage> {
     });
   }
 
-  // _getRouteName(String routeNum) async {
-  //   var response = await http.get(route_api.buildUrl(routeNum));
-  //   String responseBody = response.body;
-  //   xml2Json.parse(responseBody);
-  //   var jsonString = xml2Json.toParker();
-  //   //print('res >> $jsonString');
-
-  //   var json = jsonDecode(jsonString);
-  //   print(json);
-  //   Map<String, dynamic> errorMessage = json['response']['msgHeader'];
-
-  //   print('errorcode >> ${errorMessage['resultCode']}');
-  //   if (errorMessage['resultCode'] != arrival_api.STATUS_OK) {
-  //     setState(() {
-  //       final String errMessage = errorMessage['resultMessage'];
-  //       print('routeerror >> $errMessage');
-
-  //       _data = const [];
-  //       _isLoading = false;
-  //     });
-  //     return;
-  //   }
-
-  //   Map<String, dynamic> routeInfoList =
-  //       json['response']['msgBody']['busRouteInfoItem'];
-  //   final int cnt = routeInfoList.length;
-  //   print('routecnt >> $cnt');
-
-  //   List<busRoute> list = List.generate(cnt, (int i) {
-  //     Map<String, dynamic> item = routeInfoList[i];
-  //     return busRoute(
-  //       item['companyId'],
-  //       item['companyName'],
-  //       item['companyTel'],
-  //       item['districtCd'],
-  //       item['downFirstTime'],
-  //       item['downLastTime'],
-  //       item['endMobileNo'],
-  //       item['endStationId'],
-  //       item['endStationName'],
-  //       item['peekAlloc'],
-  //       item['regionName'],
-  //       item['routeId'],
-  //       item['routeName'],
-  //       item['routeTypeCd'],
-  //       item['routeTypeName'],
-  //       item['startMobileNo'],
-  //       item['startStationId'],
-  //       item['startStationName'],
-  //       item['upFirstTime'],
-  //       item['upLastTime'],
-  //       item['nPeekAlloc'],
-  //     );
-  //   });
-
-  //   setState(() {
-  //     print('routelist >> $list');
-  //     routeName = list[0].routeName;
-  //     Text(list[0].routeName);
-  //   });
-  // }
-
   Widget countArriverBus(int index) {
     if (_data.length <= 0) {
       return Text('도착 정보가 없어요ㅠㅠ');
@@ -306,8 +244,11 @@ class _DetailPage extends State<DetailPage> {
                           ),
                           Container(
                             child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(9.0)),
                               onPressed: () => _controller.nextPage(),
                               child: Text('->'),
+                              color: Color(0xff184C88),
                             ),
                           )
                         ],
