@@ -235,6 +235,7 @@ class _DetailPage extends State<DetailPage> {
                       Row(
                         children: <Widget>[
                           Container(
+                            margin: EdgeInsets.only(top: 10.0),
                             width: MediaQuery.of(context).size.width * 0.5,
                             height: MediaQuery.of(context).size.height * 0.08,
                             padding: EdgeInsets.all(10.0),
@@ -251,6 +252,7 @@ class _DetailPage extends State<DetailPage> {
                                 color: Color(0xff184C88)),
                           ),
                           Container(
+                            margin: EdgeInsets.only(top: 10.0),
                             width: MediaQuery.of(context).size.width * 0.5,
                             height: MediaQuery.of(context).size.height * 0.08,
                             padding: EdgeInsets.all(10.0),
