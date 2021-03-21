@@ -208,6 +208,7 @@ class _DetailPage extends State<DetailPage> {
                           return Card(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 //countArriverBus(index),
                                 if (_data.length > 0)
@@ -234,20 +235,33 @@ class _DetailPage extends State<DetailPage> {
                       Row(
                         children: <Widget>[
                           Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.08,
                             padding: EdgeInsets.all(10.0),
                             child: RaisedButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(9.0)),
                                 onPressed: () => _controller.previousPage(),
-                                child: Text('<-'),
+                                child: Text(
+                                  '<-',
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 color: Color(0xff184C88)),
                           ),
                           Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.08,
+                            padding: EdgeInsets.all(10.0),
                             child: RaisedButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(9.0)),
                               onPressed: () => _controller.nextPage(),
-                              child: Text('->'),
+                              child: Text('->',
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold)),
                               color: Color(0xff184C88),
                             ),
                           )
@@ -255,7 +269,7 @@ class _DetailPage extends State<DetailPage> {
                       ),
                       Container(
                         margin:
-                            EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+                            EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height * 0.25,
                         child: RaisedButton(
@@ -295,11 +309,14 @@ class _DetailPage extends State<DetailPage> {
                                     );
                                   });
                             },
-                            child: Text(
-                              '탑승 예약',
-                              style: TextStyle(
-                                  fontSize: 55.0, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
+                            child: Container(
+                              child: Text(
+                                '탑승 예약',
+                                style: TextStyle(
+                                    fontSize: 55.0,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                             color: Color(0xff184C88)),
                       )
