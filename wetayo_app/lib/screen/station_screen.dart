@@ -4,6 +4,7 @@ import 'package:wetayo_app/screen/detail_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
+import 'package:wetayo_app/api/config.dart';
 
 class StationScreen extends StatefulWidget {
   _StationScreenState createState() => _StationScreenState();
@@ -24,8 +25,11 @@ class _StationScreenState extends State<StationScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => DetailPage(
-                  item: _item,
+            builder: (context) => GraphQLProvider(
+                  client: graphqlService.client,
+                  child: DetailPage(
+                    item: _item,
+                  ),
                 )));
   }
 

@@ -1,7 +1,6 @@
 const String _urlPrefix =
     'http://openapi.gbis.go.kr/ws/rest/busstationservice/route?serviceKey=';
-const String _serviceKey =
-    'Q2kheZxOB4Se5Iqm4ZVPAaA6Vaf9%2BdfUAIvymf%2BBWd3VoYvRmkjMQrQmE9LrIyizUYlkkW65HDZTmswAPgDDVA%3D%3D';
+const String _serviceKey = '1234567890';
 const String _idPrefix = '&stationId=';
 const String _defaultid = '123456789';
 

@@ -11,6 +11,7 @@ import '../api/stationRoute_api.dart' as route_api;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class DetailPage extends StatefulWidget {
   final String item;
@@ -269,62 +270,113 @@ class _DetailPage extends State<DetailPage> {
                           )
                         ],
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('탑승 예약'),
-                                      content: SingleChildScrollView(
-                                        child: ListBody(
-                                          children: <Widget>[
-                                            Text('Test'),
-                                            Text(
-                                                '${_data[_controller.getIndex()].routeName}번 버스를 탑승 하시겠습니까?')
+                      Mutation(
+                        options: MutationOptions(
+                          document: gql(
+                              """mutation CreateRide(\$stationId : Int!, \$routeId : Int!){
+                      createRide(stationId : \$stationId, routeId : \$routeId){
+                        stationId
+                        routeId
+                      }
+                    }"""),
+                          update: (GraphQLDataProxy cache, QueryResult result) {
+                            return cache;
+                          },
+                          onError: (OperationException error) =>
+                              _simpleAlert(context, error.toString()),
+                          onCompleted: (dynamic resultData) =>
+                              Navigator.of(context).pop(),
+                        ),
+                        builder: (
+                          RunMutation runMutation,
+                          QueryResult result,
+                        ) {
+                          return Container(
+                            margin: EdgeInsets.only(
+                                left: 20.0, right: 20.0, top: 15.0),
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height * 0.25,
+                            child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('탑승 예약'),
+                                          content: SingleChildScrollView(
+                                            child: ListBody(
+                                              children: <Widget>[
+                                                Text('Test'),
+                                                Text(
+                                                    '${_data[_controller.getIndex()].routeName}번 버스를 탑승 하시겠습니까?'),
+                                                Text(_data[
+                                                        _controller.getIndex()]
+                                                    .stationId),
+                                                Text(_data[
+                                                        _controller.getIndex()]
+                                                    .routeId)
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text('확인'),
+                                              onPressed: () => runMutation({
+                                                'stationId': _data[
+                                                        _controller.getIndex()]
+                                                    .stationId,
+                                                'routeId': _data[
+                                                        _controller.getIndex()]
+                                                    .routeId,
+                                              }),
+                                            ),
+                                            FlatButton(
+                                              child: Text('취소'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
                                           ],
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text('확인'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                        FlatButton(
-                                          child: Text('취소'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            },
-                            child: Container(
-                              child: Text(
-                                '탑승 예약',
-                                style: TextStyle(
-                                    fontSize: 55.0,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            color: Color(0xff184C88)),
-                      )
+                                        );
+                                      });
+                                },
+                                child: Container(
+                                  child: Text(
+                                    '탑승 예약',
+                                    style: TextStyle(
+                                        fontSize: 55.0,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                color: Color(0xff184C88)),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
               ));
   }
 }
+
+void _simpleAlert(BuildContext context, String text) => showDialog<AlertDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(text),
+          actions: <Widget>[
+            SimpleDialogOption(
+              child: const Text('확인'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );

@@ -6,7 +6,8 @@ class MutationTest extends StatefulWidget {
 }
 
 class _MutationTest extends State<MutationTest> {
-  int _data = 123456;
+  int _data = 224000876;
+  int _data2 = 208000009;
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +17,18 @@ class _MutationTest extends State<MutationTest> {
           children: <Widget>[
             Mutation(
               options: MutationOptions(
-                document: gql("""mutation{
-    createRide(stationId: $_data routeId: $_data){
-        stationId
-        routeId
-    }
-}"""),
+                document: gql(
+                    """mutation CreateRide(\$stationId : Int!, \$routeId : Int!){
+                      createRide(stationId : \$stationId, routeId : \$routeId){
+                        stationId
+                        routeId
+                      }
+                    }"""),
                 update: (GraphQLDataProxy cache, QueryResult result) {
                   return cache;
                 },
+                onError: (OperationException error) =>
+                    _simpleAlert(context, error.toString()),
                 onCompleted: (dynamic resultData) =>
                     _simpleAlert(context, 'Good Test'),
               ),
@@ -36,7 +40,7 @@ class _MutationTest extends State<MutationTest> {
                   child: Text('Test1'),
                   onPressed: () => runMutation({
                     'stationId': _data,
-                    'routeId': _data,
+                    'routeId': _data2,
                   }),
                 );
               },
@@ -77,7 +81,68 @@ class _MutationTest extends State<MutationTest> {
                       });
                 },
               ),
-            )
+            ),
+            Mutation(
+              options: MutationOptions(
+                document: gql(
+                    """mutation CreateRide(\$stationId : Int!, \$routeId : Int!){
+                      createRide(stationId : \$stationId, routeId : \$routeId){
+                        stationId
+                        routeId
+                      }
+                    }"""),
+                update: (GraphQLDataProxy cache, QueryResult result) {
+                  return cache;
+                },
+                onError: (OperationException error) =>
+                    _simpleAlert(context, error.toString()),
+                onCompleted: (dynamic resultData) =>
+                    Navigator.of(context).pop(),
+              ),
+              builder: (
+                RunMutation runMutation,
+                QueryResult result,
+              ) {
+                return Container(
+                  child: RaisedButton(
+                    child: Text('btnTest'),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('탑승 예약'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    Text('Test'),
+                                    Text('$_data번 버스를 탑승 하시겠습니까?')
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text('확인'),
+                                  onPressed: () => runMutation({
+                                    'stationId': _data,
+                                    'routeId': _data2,
+                                  }),
+                                ),
+                                FlatButton(
+                                  child: Text('취소'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                    },
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
