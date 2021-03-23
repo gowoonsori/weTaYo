@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:wetayo_app/screen/detail_page.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter/services.dart';
+import 'package:wetayo_app/api/config.dart';
 
 class StationScreen extends StatefulWidget {
   _StationScreenState createState() => _StationScreenState();
 }
 
 class _StationScreenState extends State<StationScreen> {
-  String _buttonState = 'OFF';
   String _text = '현재 위치 : 모름';
-  String _x, _y; // 현재 위치의 위도, 경도 (x, y)
+  //String _x, _y; // 현재 위치의 위도, 경도 (x, y)
+  String _x = '126.7309';
+  String _y = '37.3412';
 
-  void onClick() {
-    print("onClick()");
-    setState(() {
-      if (_buttonState == 'OFF') {
-        _buttonState = 'ON';
-      } else {
-        _buttonState = 'OFF';
-      }
-    });
+  bool _isLoading = false;
+
+  String name;
+  String mobileNum;
+
+  void onClickMovie(BuildContext context, String _item) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => GraphQLProvider(
+                  client: graphqlService.client,
+                  child: DetailPage(
+                    item: _item,
+                  ),
+                )));
   }
 
   @override
@@ -30,10 +40,12 @@ class _StationScreenState extends State<StationScreen> {
     _refresh();
   }
 
+  // GPS 권한 요청 함수
   _checkPermissions() async {
     await PermissionHandler().requestPermissions([PermissionGroup.location]);
   }
 
+  // 내 위치 조희 함수
   _refresh() async {
     print('refresh current location');
     String _newText;
@@ -61,49 +73,141 @@ class _StationScreenState extends State<StationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            child: SafeArea(
-      child: Column(
-        children: <Widget>[
-          Container(
-            alignment: Alignment(-0.7, 0),
-            child: Text(
-              '나와 가장 가까운 정류소',
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-                top: 10.0, left: 20.0, right: 20.0, bottom: 30.0),
-            width: double.infinity,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment(-0.7, 0),
+                    child: Text(
+                      '나와 가장 가까운 정류소',
+                      style: TextStyle(
+                          fontSize: 25.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 10.0, left: 20.0, right: 20.0, bottom: 30.0),
+                    width: double.infinity,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                      child: Text(
+                        '\'${name}\'\n정류소 선택하기',
+                        style: TextStyle(
+                            fontSize: 35.0, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      color: Color(0xff184C88),
+                      //onPressed: _refresh,
+                      onPressed: () => onClickMovie(context, mobileNum),
+                      padding: const EdgeInsets.all(20.0),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment(-0.5, 0),
+                    child: Text(
+                      '내 주변의 가장 가까운 정류소',
+                      style: TextStyle(
+                          fontSize: 25.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Query(
+                    options: QueryOptions(
+                      document: gql("""query{
+            getStationAndRoutes(gpsY: 37.3740667 gpsX: 126.84246 distance: 0.2){
+              stationId
+              stationName
+              mobileNumber
+              distance
+                routes{
+                  routeId
+                  routeNumber
+                }
+              }
+              }"""),
+                    ),
+                    builder: (QueryResult result,
+                        {VoidCallback refetch, FetchMore fetchMore}) {
+                      if (result.exception != null) {
+                        return Center(
+                            child: Text(
+                                "에러가 발생했습니다.\n${result.exception.toString()}"));
+                      }
+                      if (result.isLoading) {
+                        setState(() {
+                          _isLoading = result.isLoading;
+                        });
+
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        _isLoading = result.isLoading;
+                        print(result.data.toString());
+                        name = result.data["getStationAndRoutes"][0]
+                                ["stationName"]
+                            .toString();
+                        mobileNum = result.data["getStationAndRoutes"][0]
+                                ["mobileNumber"]
+                            .toString();
+                        print(name);
+                        print(
+                            'routeName >> ${result.data['getStationAndRoutes'][0]['routes'][1]}');
+                        return _buildList(context, result);
+                      }
+                    },
+                  ),
+                ],
               ),
-              child: Text(
-                '한국산업기술대 \n (이마트 방향) \n 정류소 선택하기',
-                style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              color: Color(0xff184C88),
-              onPressed: _refresh,
-              padding: const EdgeInsets.all(20.0),
             ),
-          ),
-          Container(
-            alignment: Alignment(-0.5, 0),
-            child: Text(
-              '내 주변의 가장 가까운 정류소',
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Container(
-            child: Text(_text),
-          )
-        ],
-      ),
-    )));
+    );
+    //rebuildAllChildren(context);
+  }
+
+  Widget _buildList(BuildContext context, QueryResult result) {
+    return Expanded(
+        child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: result.data["getStationAndRoutes"].length,
+            itemBuilder: (context, index) {
+              Map item = result.data["getStationAndRoutes"][index];
+              return Card(
+                shape: StadiumBorder(),
+                elevation: 20,
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: ListTile(
+                    onTap: () =>
+                        onClickMovie(context, item['stationId'].toString()),
+                    dense: true,
+                    //leading: Image.network(item["medium_cover_image"]),
+                    title: Text(
+                      item["stationName"].toString(),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        Text(
+                          item["mobileNumber".toString()],
+                          style: TextStyle(color: Colors.yellow),
+                        )
+                      ],
+                    ),
+                    trailing: Text("distance\n${item["distance"]}"),
+                  ),
+                ),
+              );
+            }));
   }
 }

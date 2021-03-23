@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:wetayo_app/api/config.dart';
+import 'package:wetayo_app/screen/ServerTest.dart';
+import 'package:wetayo_app/screen/detail_page.dart';
 import 'package:wetayo_app/screen/home_screen.dart';
 import 'package:wetayo_app/screen/lbs_screen.dart';
+import 'package:wetayo_app/screen/mutationTest.dart';
 import 'package:wetayo_app/screen/station_screen.dart';
+import 'package:wetayo_app/screen/test.dart';
 import 'package:wetayo_app/widget/bottom_bar.dart';
 
 void main() {
@@ -30,8 +36,15 @@ class _MyAppState extends State<MyApp> {
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               HomeScreen(),
-              LbsScreen(),
-              StationScreen(),
+              //
+              GraphQLProvider(
+                client: graphqlService.client,
+                child: MutationTest(),
+              ),
+              GraphQLProvider(
+                client: graphqlService.client,
+                child: StationScreen(),
+              )
             ],
           ),
           bottomNavigationBar: Bottom(),

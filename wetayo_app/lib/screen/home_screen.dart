@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wetayo_app/screen/station_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
@@ -59,13 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(18.0),
                     ),
                     child: Text(
-                      '즐겨찾기',
+                      '하차벨',
                       style: TextStyle(
                           fontSize: 55.0, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                     color: Color(0xff184C88),
-                    onPressed: onClick,
+                    onPressed: () =>
+                        DefaultTabController.of(context).animateTo(1),
                   ),
                 ),
               )
